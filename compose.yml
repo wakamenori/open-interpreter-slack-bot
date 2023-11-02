@@ -1,0 +1,33 @@
+version: '3'
+services:
+  bot:
+    build: bot
+    image: asia-northeast1-docker.pkg.dev/bizops-394108/open-interpreter/bot
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./bot:/app
+      - ./bot/config.yml:/root/.config/Open Interpreter/config.yml
+    env_file:
+      - .env
+  function-runner:
+    build:
+      context: function-runner
+      dockerfile: Dockerfile
+    image: asia-northeast1-docker.pkg.dev/bizops-394108/open-interpreter/function-runner
+    ports:
+      - "8081:8081"
+    platform: linux/amd64
+  function-runner-local:
+    build:
+      context: function-runner
+      dockerfile: Dockerfile.local
+    container_name: function-runner-local
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./function-runner:/app
+
+#volumes:
+#  something:
+#  サイドカーだから共通のものが持てるはず

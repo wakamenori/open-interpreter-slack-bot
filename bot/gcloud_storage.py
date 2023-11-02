@@ -76,7 +76,7 @@ def upload_files_to_bucket(local_directory_path: str, bucket_name: str, blob_pre
     if not os.path.exists(local_directory_path):
         return
 
-    ignore_patterns = get_ignore_patterns(".gitignore")
+    ignore_patterns = get_ignore_patterns("../.gitignore")
 
     # Loop through each file in the temporary directory
     for root, _, files in os.walk(local_directory_path):
